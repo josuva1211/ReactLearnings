@@ -1,3 +1,28 @@
 #Heading {
     color: red;
 }
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: beige;
+}
+
+input {
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    padding: 15px;
+    width: 300px;
+    height: 30px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+img {
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+}
