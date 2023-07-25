@@ -1,105 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-
-import { FaUserCircle  } from "react-icons/fa";
-
-const Heading = React.createElement("h1", {id: "heading"}, "Welcome to root");
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
-
-const jsxHeading = <h1 className="head">Namaste React using JSX</h1>
-
-/*
-    Header
-        - Logo
-        - Nav Items
-    Body
-        - Search
-        - RestaurantContainer
-            - RestaurantCard
-                - Image
-                - Name
-                - Cuisine
-                - Rating
-
-    Footer
-        - Copyright
-        - Links
-        - Address
-        - Contact
-// */
-
-// const Title = () => (
-//     <h1 className="head">
-//         Namaste React using JSX!
-//     </h1>
-// );
-
-// //Component Composition
-// const HeadingComponent = () => (
-//     <>
-//         <NavbarComponent />
-//         <div id="container-1">
-//             {Title()}
-//             <Title></Title>
-//             <Title />
-//             <h1 id="heading">Namaste React Functional Component</h1>
-//         </div>
-//         <div id="container-2">
-//             <h1>Container 2</h1>
-//         </div>
-//     </>
-    
-// )
-
-// const NavbarComponent = () => {
-//     return (
-//         <>
-//             <nav className="navbar">
-//                 <img src="https://images.unsplash.com/photo-1688870550853-f5956b4c010d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" />
-//                 <input type="text" name="" value="SEARCH..." />
-//                 <FaUserCircle style={{color: 'white', fontSize: '50px', padding: '10px'}} />
-//             </nav>
-//         </>
-//     );
-// }
-
-const Header = () => {
-    return (
-        <div className="header">
-            <div className="logo-container">
-                <img src="https://www.shutterstock.com/shutterstock/photos/1328492696/display_1500/stock-vector-food-finder-app-logo-design-vector-template-1328492696.jpg" />
-            </div>
-            <div className="nav-items">
-                <ul>
-                    <li>Home</li>
-                    <li>About Us</li>
-                    <li>Contact Us</li>
-                    <li>Cart</li>
-                </ul>
-            </div>
-        </div>
-    );
-    
-}
-
-const RestaurantCard = (props) => {
-    //console.log(props);
-    const { resObj } = props;
-    const { name, cloudinaryImageId, cuisines, avgRating} = resObj?.info;
-    return (
-        <div className="res-card">
-            <img src={
-                "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +  cloudinaryImageId
-             } alt="item" />
-            <h2>{name}</h2>
-            <h3>{cuisines.join(", ")}</h3>
-            <h4>{avgRating}</h4>
-        </div>
-    )
-    
-}
-
 const resList =  [
     {
       "info": {
@@ -237,7 +135,7 @@ const resList =  [
           "Desserts",
           "Ice Cream"
         ],
-        "avgRating": 4.2,
+        "avgRating": 3.2,
         "veg": true,
         "feeDetails": {
           "restaurantId": "502673",
@@ -353,7 +251,7 @@ const resList =  [
           "Bakery",
           "Beverages"
         ],
-        "avgRating": 4.4,
+        "avgRating": 3.4,
         "feeDetails": {
           "restaurantId": "524936",
           "fees": [
@@ -588,7 +486,7 @@ const resList =  [
           "Portuguese",
           "Continental"
         ],
-        "avgRating": 4.3,
+        "avgRating": 3.3,
         "feeDetails": {
           "restaurantId": "17036",
           "fees": [
@@ -1040,7 +938,7 @@ const resList =  [
           "Cafe",
           "Desserts"
         ],
-        "avgRating": 4.2,
+        "avgRating": 3.2,
         "feeDetails": {
           "restaurantId": "23682",
           "fees": [
@@ -1144,30 +1042,4 @@ const resList =  [
     }
   ]
 
-const Body = () => {
-    return (
-        <div className="body">
-            <div className="search">
-                Search
-            </div>
-            <div className="res-container">
-                { resList.map(restaurant => (
-                    <RestaurantCard key={restaurant.info.id} resObj={restaurant} />
-                ))}
-                
-            </div>
-        </div>
-    );
-    
-}
-
-const AppLayout = () => {
-    return (
-        <div className="App">
-            <Header />
-            <Body />
-        </div>
-    );
-}
-
-root.render(<AppLayout />);
+export default resList;
