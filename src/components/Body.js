@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import RestaurantCard from "./RestaurantCard";
-import SearchBar from "./SearchBar"
-import resList from "../utils/mockData";
+import SearchBar from "./SearchBar";
+import Shimmer from "./Shimmer";
 
 const Body = () => {
 
@@ -30,23 +30,35 @@ const Body = () => {
         border: 'none',
         margin: '10px'
       };
-    
-    const [restaurants, setRestaurants] = useState(resList);
 
-    function handleSearch(searchVal) {
-        if (searchVal) {
-            setRestaurants(
-                restaurants.filter(res => res.info.name.toLowerCase() === searchVal.toLowerCase())
-            );
-        } else {
-            setRestaurants(resList);
-        } 
+    const [restaurants, setRestaurants] = useState([]);
+    const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9189502&lng=77.63259350000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+        const json = await data.json();
+        console.log(json);
+        setRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        setFilteredRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        
     }
 
-    return (
+    function handleSearch(searchVal) {
+        setFilteredRestaurants(
+            restaurants.filter(res => res.info.name.toLowerCase().includes(searchVal.toLowerCase()))
+        );
+    }
+
+    return restaurants.length === 0 ? (
+        <Shimmer />
+    ) : (
         <div className="body">
             <div className="filter">
-                <button style={buttonStyle} onClick={() => setRestaurants(
+                <button style={buttonStyle} onClick={() => filteredRestaurants(
                     restaurants.filter(res => res.info.avgRating >= 4)
                 )}>Show Top Restaurants</button>
             </div>
@@ -54,7 +66,7 @@ const Body = () => {
                 <SearchBar onSearch={handleSearch} />
             </div>
             <div className="res-container">
-                { restaurants.map(restaurant => (
+                { filteredRestaurants.map(restaurant => (
                     <RestaurantCard key={restaurant.info.id} resObj={restaurant} />
                 ))}
                 
