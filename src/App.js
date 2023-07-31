@@ -1,15 +1,46 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import { FaUserCircle  } from "react-icons/fa";
 
 import AppLayout from "./components/AppLayout";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import Body from "./components/Body";
+import RestaurantMenu from "./components/RestaurantMenu";
+
 
 const Heading = React.createElement("h1", {id: "heading"}, "Welcome to root");
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const appRouter = createBrowserRouter([
+    {
+        path: "/",
+        element: <AppLayout />,
+        children: [
+            {
+                path: "/",
+                element: <Body />
+            },
+            {
+                path: "/about",
+                element: <About />
+            },
+            {
+                path: "/contact",
+                element: <Contact />
+            },
+            {
+                path: "/restaurants/:resId",
+                element: <RestaurantMenu />
+            }
+        ],
+        errorElement: <Error />
+    },
+])
 
-const jsxHeading = <h1 className="head">Namaste React using JSX</h1>
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
 /*
     Header
@@ -68,4 +99,4 @@ const jsxHeading = <h1 className="head">Namaste React using JSX</h1>
 
 
 
-root.render(<AppLayout />);
+root.render(<RouterProvider router={appRouter} />);

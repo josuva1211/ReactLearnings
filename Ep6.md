@@ -39,6 +39,11 @@ Assignments
     Two Ways to Load Apps,
     1. Load App => API Call => Render () Wait for the Response till then UI will be blank
     2. Load App => Render the Skeleton => API Call => Re Render with data (React Way) Better User Experience
+    - It takes two arguments, a callback and dependency array
+    - Based on the dependency array your callback will be executed
+        1. When no dependency array the callback will be called everytime the component renders
+        2. When an empty dependency array the callback will be called only first time when the component renders
+        3. When there is a value given under the dependency array then the callback will be executed whenever there is a change in the value
 
     - useEffect will be useful to implement the 2nd approach
     - Once the UI is rendered and the useEffect callback will be executed

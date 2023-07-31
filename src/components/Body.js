@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import RestaurantCard from "./RestaurantCard";
 import SearchBar from "./SearchBar";
 import Shimmer from "./Shimmer";
+import { Link } from "react-router-dom";
 
 const Body = () => {
 
@@ -39,11 +40,16 @@ const Body = () => {
     }, []);
 
     const fetchData = async () => {
-        const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9189502&lng=77.63259350000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-        const json = await data.json();
-        console.log(json);
-        setRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-        setFilteredRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        try {
+            const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9189502&lng=77.63259350000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+            const json = await data.json();
+            console.log(json);
+            setRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setFilteredRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+        } catch {
+            console.error('Error fetching data:', error);
+            throw error; 
+        }
         
     }
 
@@ -67,7 +73,9 @@ const Body = () => {
             </div>
             <div className="res-container">
                 { filteredRestaurants.map(restaurant => (
-                    <RestaurantCard key={restaurant.info.id} resObj={restaurant} />
+                    <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
+                        <RestaurantCard resObj={restaurant} />
+                    </Link>  
                 ))}
                 
             </div>
