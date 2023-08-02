@@ -12,6 +12,9 @@ const RestaurantMenu = () => {
 
     useEffect(() => {
         fetchInfo();
+        // const timer = setInterval(() => {
+        //     console.log("Interval running in use effect");
+        // }, 1000)
     }, [])
 
     const fetchInfo = async () => {
