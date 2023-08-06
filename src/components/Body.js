@@ -4,33 +4,9 @@ import RestaurantCard from "./RestaurantCard";
 import SearchBar from "./SearchBar";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
-
-    const containerStyle = {
-        display: 'flex',
-        alignItems: 'center',
-        borderRadius: '20px',   
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-        overflow: 'hidden',
-        padding: '4px',
-        maxWidth: '300px',
-        margin: '10px',
-      };
-
-      const buttonStyle = {
-        padding: '12px 24px',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        color: 'rgb(123, 121, 121)',
-        backgroundColor: '#fff',
-        borderRadius: '4px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', // Box shadow style
-        cursor: 'pointer',
-        transition: 'box-shadow 0.3s ease', // Add a smooth transition for box shadow
-        border: 'none',
-        margin: '10px'
-      };
 
     const [restaurants, setRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -59,19 +35,27 @@ const Body = () => {
         );
     }
 
+    const onlineStatus = useOnlineStatus();
+
+    if (onlineStatus == false) {
+        return (
+            <h1>Looks like you are offline! Please check your internet connection.</h1>
+        )
+    }
+
     return restaurants.length === 0 ? (
         <Shimmer />
     ) : (
-        <div className="body">
+        <div className="body m-1">
             <div className="filter">
-                <button style={buttonStyle} onClick={() => filteredRestaurants(
+                <button className="bg-orange-500 mt-2 p-2 shadow-xl rounded-md text-white text-base" onClick={() => filteredRestaurants(
                     restaurants.filter(res => res.info.avgRating >= 4)
                 )}>Show Top Restaurants</button>
             </div>
-            <div className="search-bar" style={containerStyle}>
+            <div className="search-bar">
                 <SearchBar onSearch={handleSearch} />
             </div>
-            <div className="res-container">
+            <div className="res-container flex flex-wrap">
                 { filteredRestaurants.map(restaurant => (
                     <Link key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
                         <RestaurantCard resObj={restaurant} />

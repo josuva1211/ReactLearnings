@@ -3,15 +3,7 @@ import { useState } from "react"
 
 const SearchBar = ({onSearch}) => {
 
-    const inputStyle = {
-        flex: '1',
-        border: 'none',
-        outline: 'none',
-        padding: '8px',
-        fontSize: '16px',
-        borderRadius: '20px 0 0 20px',
-        backgroundColor: '#fff',
-      };
+    
       
     const [searchVal, setSearchVal] = useState("");
 
@@ -24,7 +16,7 @@ const SearchBar = ({onSearch}) => {
     }
 
     return (
-        <input type="text" style={inputStyle} value={searchVal} onChange={handleChange} onBlur={handleSearch} placeholder="SEARCH RESTAURANTS" />
+        <input type="text" className="shadow appearance-none border rounded border-8 border-solid border-orange-500 my-4 py-2 px-3 text-orange-500 leading-tight focus:outline-none focus:shadow-outline" value={searchVal} onChange={handleChange} onBlur={handleSearch} placeholder="Search Restaurants" />
     )
 }
 

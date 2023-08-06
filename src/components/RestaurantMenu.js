@@ -2,27 +2,14 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Shimmer from './Shimmer';
 import { RES_MENU_URL } from '../utils/common';
+import useRestaurantMenu from '../utils/useRestaurantMenu';
 
 const RestaurantMenu = () => {
 
     const { resId } = useParams();
-    console.log(resId);
+    //console.log(resId);
 
-    const [resInfo, setResInfo] = useState(null);
-
-    useEffect(() => {
-        fetchInfo();
-        // const timer = setInterval(() => {
-        //     console.log("Interval running in use effect");
-        // }, 1000)
-    }, [])
-
-    const fetchInfo = async () => {
-        const response = await fetch(RES_MENU_URL + resId);
-        const json = await response.json();
-        console.log(json);
-        setResInfo(json.data);
-    };
+    const resInfo = useRestaurantMenu(resId);
 
     if (resInfo === null) return <Shimmer />
 
