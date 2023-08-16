@@ -1,3 +1,4 @@
+import React from "react";
 import { useContext } from "react";
 import { FOOD_URL } from "../utils/common";
 import UserContext from "../utils/UserContext";
@@ -8,7 +9,7 @@ const RestaurantCard = (props) => {
     const { name, cloudinaryImageId, cuisines, avgRating} = resObj?.info;
     const { loggedInUser } = useContext(UserContext);
     return (
-        <div className="res-card m-5 w-400 h-200 bg-orange-500 shadow-2xl rounded-2xl">
+        <div data-testid="Res-Card" className="res-card m-5 w-400 h-200 bg-orange-500 shadow-2xl rounded-2xl">
             <img className="w-56 p-2 rounded-3xl" src={
                 FOOD_URL +  cloudinaryImageId
              } alt="item" />

@@ -1,5 +1,5 @@
+import React from "react";
 import { useState, useEffect } from "react";
-
 import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import SearchBar from "./SearchBar";
 import Shimmer from "./Shimmer";
@@ -21,9 +21,9 @@ const Body = () => {
         try {
             const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9189502&lng=77.63259350000001&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
             const json = await data.json();
-            console.log(json);
-            setRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
-            setFilteredRestaurants(json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            //console.log(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+            setFilteredRestaurants(json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
         } catch {
             console.error('Error fetching data:', error);
             throw error; 
@@ -50,8 +50,8 @@ const Body = () => {
     ) : (
         <div className="body m-1">
             <div className="filter">
-                <button className="bg-orange-500 mt-2 p-2 shadow-xl rounded-md text-white text-base" onClick={() => filteredRestaurants(
-                    restaurants.filter(res => res.info.avgRating >= 4)
+                <button className="bg-orange-500 mt-2 p-2 shadow-xl rounded-md text-white text-base" onClick={() => setFilteredRestaurants(
+                    restaurants.filter(res => res.info.avgRating >= 4.2)
                 )}>Show Top Restaurants</button>
             </div>
             <div className="search-bar">
